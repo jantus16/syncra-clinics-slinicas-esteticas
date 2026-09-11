@@ -657,6 +657,16 @@ p {
   display: block;
 }
 
+.form-status.error {
+  color: #B3261E;
+}
+
+.modal-form button[type="submit"]:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 .contact-info-card {
   background: var(--bg-surface);
   border: 1px solid var(--border-color);
