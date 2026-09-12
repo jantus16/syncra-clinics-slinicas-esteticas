@@ -144,6 +144,79 @@ function setupInfoModal() {
   modal.querySelectorAll("form").forEach((form) => setupInfoForm(form));
 }
 
+const FORM_FIELD_KEY_MAP = {
+  name: "nombre",
+  clinic: "clinica",
+  email: "email",
+  phone: "telefono",
+  city: "ciudad",
+  type: "tipo_clinica",
+  volume: "citas_mensuales_aprox",
+  message: "mensaje",
+  time: "mejor_horario",
+};
+
+function buildInfoFormPayload(form) {
+  const tipoSolicitud = form.id === "form-demo" ? "Demo" : "Servicios";
+  const payload = {
+    tipo_solicitud: tipoSolicitud,
+    pagina_origen: window.location.href,
+    fecha_envio: new Date().toISOString(),
+  };
+
+  form.querySelectorAll("[data-field-label]").forEach((field) => {
+    const rawKey = field.id.replace(/^(svc|demo)-/, "");
+    const key = FORM_FIELD_KEY_MAP[rawKey] || rawKey;
+    payload[key] = field.value.trim();
+  });
+
+  const checkboxGroups = new Map();
+  form.querySelectorAll('input[type="checkbox"]:checked').forEach((checkbox) => {
+    const group = checkboxGroups.get(checkbox.name) || [];
+    group.push(checkbox.value);
+    checkboxGroups.set(checkbox.name, group);
+  });
+  checkboxGroups.forEach((values) => {
+    payload.servicios_interes = values;
+  });
+
+  const storedPainPoints = getStoredPainPoints();
+  if (storedPainPoints.length) {
+    payload.dolores_seleccionados = storedPainPoints;
+  }
+
+  payload.asunto_sugerido = `[NUEVA SOLICITUD] ${tipoSolicitud} - Syncra Clinics`;
+
+  const bodyLines = [
+    "Nueva solicitud recibida desde Syncra Clinics",
+    "",
+    "Tipo de solicitud:",
+    tipoSolicitud,
+    "",
+    "Nombre:",
+    payload.nombre || "-",
+    "",
+    "Clínica:",
+    payload.clinica || "-",
+    "",
+    "Email:",
+    payload.email || "-",
+    "",
+    "Teléfono:",
+    payload.telefono || "-",
+  ];
+  if (payload.mejor_horario) {
+    bodyLines.push("", "Mejor horario:", payload.mejor_horario);
+  }
+  if (payload.servicios_interes && payload.servicios_interes.length) {
+    bodyLines.push("", "Servicios de interés:", payload.servicios_interes.join(", "));
+  }
+  bodyLines.push("", "Mensaje:", payload.mensaje || "-");
+  payload.cuerpo_sugerido = bodyLines.join("\n");
+
+  return payload;
+}
+
 function setupInfoForm(form) {
   form.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -156,32 +229,7 @@ function setupInfoForm(form) {
     const submitButton = form.querySelector('button[type="submit"]');
     const status = form.querySelector(".form-status");
     const originalButtonText = submitButton ? submitButton.textContent : "";
-
-    const payload = {
-      tipo_formulario: form.id === "form-demo" ? "demo" : "servicios",
-      pagina_origen: window.location.href,
-      fecha_envio: new Date().toISOString(),
-    };
-
-    form.querySelectorAll("[data-field-label]").forEach((field) => {
-      const key = field.id.replace(/^(svc|demo)-/, "");
-      payload[key] = field.value.trim();
-    });
-
-    const checkboxGroups = new Map();
-    form.querySelectorAll('input[type="checkbox"]:checked').forEach((checkbox) => {
-      const group = checkboxGroups.get(checkbox.name) || [];
-      group.push(checkbox.value);
-      checkboxGroups.set(checkbox.name, group);
-    });
-    checkboxGroups.forEach((values) => {
-      payload.intereses = values;
-    });
-
-    const storedPainPoints = getStoredPainPoints();
-    if (storedPainPoints.length) {
-      payload.dolores_seleccionados = storedPainPoints;
-    }
+    const payload = buildInfoFormPayload(form);
 
     if (submitButton) {
       submitButton.disabled = true;
@@ -192,18 +240,25 @@ function setupInfoForm(form) {
       status.classList.remove("visible", "error");
     }
 
+    const DEFAULT_ERROR_MESSAGE = "No hemos podido enviar tu solicitud. Por favor, inténtalo de nuevo.";
+
     fetch("/api/contact", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     })
-      .then((response) => {
-        if (!response.ok) throw new Error("Respuesta no válida del servidor");
-        return response.json();
-      })
-      .then((data) => {
-        if (!data || !data.ok) throw new Error("El envío no se completó");
+      .then(async (response) => {
+        const contentType = response.headers.get("content-type") || "";
+        const data = contentType.includes("application/json")
+          ? await response.json().catch(() => null)
+          : null;
 
+        if (!response.ok || !data || !data.ok) {
+          const message = data && data.error ? data.error : DEFAULT_ERROR_MESSAGE;
+          throw new Error(message);
+        }
+      })
+      .then(() => {
         form.reset();
         if (status) {
           status.textContent = "¡Solicitud enviada correctamente! Gracias por contactar con Syncra Clinics. Nos pondremos en contacto contigo lo antes posible.";
@@ -214,7 +269,7 @@ function setupInfoForm(form) {
       .catch((error) => {
         console.error("Error al enviar el formulario:", error);
         if (status) {
-          status.textContent = "No hemos podido enviar tu solicitud. Por favor, inténtalo de nuevo.";
+          status.textContent = error && error.message ? error.message : DEFAULT_ERROR_MESSAGE;
           status.classList.add("visible", "error");
         }
       })

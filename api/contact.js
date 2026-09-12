@@ -4,17 +4,27 @@ module.exports = async function handler(req, res) {
     return res.status(405).json({ ok: false, error: "Método no permitido" });
   }
 
+  const body = req.body && typeof req.body === "object" ? req.body : {};
+
+  if (!body.nombre || !body.email) {
+    return res.status(400).json({ ok: false, error: "Faltan datos obligatorios (nombre y email)" });
+  }
+
   const webhookUrl = process.env.N8N_WEBHOOK_URL;
   if (!webhookUrl) {
     console.error("N8N_WEBHOOK_URL no está configurada en las variables de entorno");
     return res.status(500).json({ ok: false, error: "Configuración del servidor incompleta" });
   }
 
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 8000);
+
   try {
     const n8nResponse = await fetch(webhookUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(req.body || {}),
+      body: JSON.stringify(body),
+      signal: controller.signal,
     });
 
     if (!n8nResponse.ok) {
@@ -25,7 +35,13 @@ module.exports = async function handler(req, res) {
 
     return res.status(200).json({ ok: true });
   } catch (error) {
+    if (error.name === "AbortError") {
+      console.error("Timeout al contactar el webhook de n8n");
+      return res.status(504).json({ ok: false, error: "El webhook tardó demasiado en responder" });
+    }
     console.error("Error al reenviar la solicitud al webhook de n8n:", error);
     return res.status(500).json({ ok: false, error: "No se pudo contactar con el webhook" });
+  } finally {
+    clearTimeout(timeoutId);
   }
 };
