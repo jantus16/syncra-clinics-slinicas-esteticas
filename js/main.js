@@ -23,10 +23,97 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  setupHeaderScroll();
+  setupScrollReveal();
+  setupDashboardCounters();
   setupPainPoints();
   setupInfoModal();
   setupPhoneMenu();
 });
+
+function setupHeaderScroll() {
+  const header = document.querySelector(".site-header");
+  if (!header) return;
+
+  const onScroll = () => {
+    header.classList.toggle("is-scrolled", window.scrollY > 8);
+  };
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+}
+
+function setupScrollReveal() {
+  const targets = document.querySelectorAll(".reveal, .dashboard-panel");
+  if (!targets.length) return;
+
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+    targets.forEach((el) => el.classList.add("is-visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
+  );
+
+  targets.forEach((el) => observer.observe(el));
+}
+
+function setupDashboardCounters() {
+  const counters = document.querySelectorAll("[data-count-to]");
+  if (!counters.length) return;
+
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const runCounter = (el) => {
+    const target = parseInt(el.dataset.countTo, 10) || 0;
+    const prefix = el.dataset.countPrefix || "";
+
+    if (prefersReducedMotion) {
+      el.textContent = `${prefix}${target}`;
+      return;
+    }
+
+    const duration = 900;
+    const start = performance.now();
+
+    const step = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = `${prefix}${Math.round(target * eased)}`;
+      if (progress < 1) requestAnimationFrame(step);
+    };
+
+    requestAnimationFrame(step);
+  };
+
+  if (!("IntersectionObserver" in window)) {
+    counters.forEach(runCounter);
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          runCounter(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.4 }
+  );
+
+  counters.forEach((el) => observer.observe(el));
+}
 
 function getStoredPainPoints() {
   try {
@@ -65,35 +152,14 @@ function setupPainPoints() {
   });
 }
 
-function applyStoredPainPointsToForms(modal) {
-  const stored = getStoredPainPoints();
-  if (!stored.length) return;
-
-  modal.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
-    if (stored.includes(checkbox.value)) {
-      checkbox.checked = true;
-    }
-  });
-}
-
 function setupInfoModal() {
   const modal = document.querySelector("#info-modal");
   if (!modal) return;
 
-  const steps = modal.querySelectorAll(".modal-step");
   let lastFocused = null;
 
-  applyStoredPainPointsToForms(modal);
-
-  const showStep = (name) => {
-    steps.forEach((step) => {
-      step.hidden = step.dataset.step !== name;
-    });
-  };
-
-  const openModal = (step) => {
+  const openModal = () => {
     lastFocused = document.activeElement;
-    showStep(step === "servicios" || step === "demo" ? step : "choice");
     modal.classList.add("open");
     modal.setAttribute("aria-hidden", "false");
     document.body.classList.add("modal-open");
@@ -104,23 +170,14 @@ function setupInfoModal() {
     modal.setAttribute("aria-hidden", "true");
     document.body.classList.remove("modal-open");
     if (lastFocused instanceof HTMLElement) lastFocused.focus();
-    window.setTimeout(() => showStep("choice"), 250);
   };
 
   document.querySelectorAll("[data-open-modal]").forEach((trigger) => {
-    trigger.addEventListener("click", () => openModal(trigger.dataset.openModal));
+    trigger.addEventListener("click", openModal);
   });
 
   modal.querySelectorAll("[data-close-modal]").forEach((btn) => {
     btn.addEventListener("click", closeModal);
-  });
-
-  modal.querySelectorAll("[data-target]").forEach((btn) => {
-    btn.addEventListener("click", () => showStep(btn.dataset.target));
-  });
-
-  modal.querySelectorAll("[data-back]").forEach((btn) => {
-    btn.addEventListener("click", () => showStep("choice"));
   });
 
   modal.addEventListener("click", (event) => {
@@ -133,15 +190,14 @@ function setupInfoModal() {
 
   const openFromHash = () => {
     const hash = window.location.hash.replace("#", "");
-    if (hash === "demo" || hash === "servicios" || hash === "choice") {
-      openModal(hash);
-    }
+    if (hash === "demo") openModal();
   };
 
   window.addEventListener("hashchange", openFromHash);
   openFromHash();
 
-  modal.querySelectorAll("form").forEach((form) => setupInfoForm(form));
+  const form = modal.querySelector("form");
+  if (form) setupInfoForm(form);
 }
 
 const FORM_FIELD_KEY_MAP = {
@@ -149,35 +205,21 @@ const FORM_FIELD_KEY_MAP = {
   clinic: "clinica",
   email: "email",
   phone: "telefono",
-  city: "ciudad",
-  type: "tipo_clinica",
-  volume: "citas_mensuales_aprox",
+  service: "servicio",
   message: "mensaje",
-  time: "mejor_horario",
 };
 
 function buildInfoFormPayload(form) {
-  const tipoSolicitud = form.id === "form-demo" ? "Demo" : "Servicios";
   const payload = {
-    tipo_solicitud: tipoSolicitud,
+    tipo_solicitud: "Demo",
     pagina_origen: window.location.href,
     fecha_envio: new Date().toISOString(),
   };
 
   form.querySelectorAll("[data-field-label]").forEach((field) => {
-    const rawKey = field.id.replace(/^(svc|demo)-/, "");
+    const rawKey = field.id.replace(/^demo-/, "");
     const key = FORM_FIELD_KEY_MAP[rawKey] || rawKey;
     payload[key] = field.value.trim();
-  });
-
-  const checkboxGroups = new Map();
-  form.querySelectorAll('input[type="checkbox"]:checked').forEach((checkbox) => {
-    const group = checkboxGroups.get(checkbox.name) || [];
-    group.push(checkbox.value);
-    checkboxGroups.set(checkbox.name, group);
-  });
-  checkboxGroups.forEach((values) => {
-    payload.servicios_interes = values;
   });
 
   const storedPainPoints = getStoredPainPoints();
@@ -185,13 +227,13 @@ function buildInfoFormPayload(form) {
     payload.dolores_seleccionados = storedPainPoints;
   }
 
-  payload.asunto_sugerido = `[NUEVA SOLICITUD] ${tipoSolicitud} - Syncra Clinics`;
+  payload.asunto_sugerido = `[NUEVA SOLICITUD] Demo - Syncra Clinics`;
 
   const bodyLines = [
     "Nueva solicitud recibida desde Syncra Clinics",
     "",
     "Tipo de solicitud:",
-    tipoSolicitud,
+    "Demo",
     "",
     "Nombre:",
     payload.nombre || "-",
@@ -205,11 +247,8 @@ function buildInfoFormPayload(form) {
     "Teléfono:",
     payload.telefono || "-",
   ];
-  if (payload.mejor_horario) {
-    bodyLines.push("", "Mejor horario:", payload.mejor_horario);
-  }
-  if (payload.servicios_interes && payload.servicios_interes.length) {
-    bodyLines.push("", "Servicios de interés:", payload.servicios_interes.join(", "));
+  if (payload.servicio) {
+    bodyLines.push("", "Servicio de interés:", payload.servicio);
   }
   bodyLines.push("", "Mensaje:", payload.mensaje || "-");
   payload.cuerpo_sugerido = bodyLines.join("\n");
@@ -261,7 +300,7 @@ function setupInfoForm(form) {
       .then(() => {
         form.reset();
         if (status) {
-          status.textContent = "¡Solicitud enviada correctamente! Gracias por contactar con Syncra Clinics. Nos pondremos en contacto contigo lo antes posible.";
+          status.textContent = "Solicitud recibida correctamente. Nos pondremos en contacto contigo lo antes posible.";
           status.classList.add("visible");
           status.classList.remove("error");
         }

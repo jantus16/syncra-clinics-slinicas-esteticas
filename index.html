@@ -3,11 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SyncraClinics — Automatización para clínicas estéticas</title>
-<meta name="description" content="SyncraClinics ayuda a clínicas estéticas a dejar de perder pacientes: cualificación de leads, atención 24/7, menos ausentismo y agendas gestionadas automáticamente.">
+<title>SyncraClinics | Asistente virtual para clínicas estéticas</title>
+<meta name="description" content="Un asistente virtual que atiende, capta, agenda y hace seguimiento de tus pacientes 24/7, con automatización detrás para reducir las tareas manuales de tu clínica.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="SyncraClinics">
+<meta property="og:title" content="SyncraClinics | Asistente virtual para clínicas estéticas">
+<meta property="og:description" content="Un asistente virtual que atiende, capta, agenda y hace seguimiento de tus pacientes 24/7, con automatización detrás para reducir las tareas manuales de tu clínica.">
+<meta property="og:image" content="https://syncraclinics.es/assets/logo-symbol.png">
+<meta property="og:url" content="https://syncraclinics.es/">
+<link rel="canonical" href="https://syncraclinics.es/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body data-page="inicio">
@@ -16,22 +24,19 @@
   <div class="header-inner">
     <a href="index.html" class="brand">
       <img src="assets/logo-symbol.png" alt="SyncraClinics">
-      <span class="brand-text">
-        <span class="brand-name">SyncraClinics</span>
-        <span class="brand-tag">Healthcare &amp; Branding Agency</span>
-      </span>
+      <span class="brand-name">SyncraClinics</span>
     </a>
 
     <nav class="main-nav">
       <a href="index.html" data-page="inicio">Inicio</a>
       <a href="soluciones.html" data-page="soluciones">Soluciones</a>
+      <a href="index.html#como-funciona">Cómo funciona</a>
       <a href="nosotros.html" data-page="nosotros">Nosotros</a>
       <a href="contacto.html" data-page="contacto">Contacto</a>
     </nav>
 
     <div class="header-actions">
-      <span class="status-badge"><span class="status-dot"></span> Disponibles 24/7</span>
-      <a href="contacto.html#choice" class="btn btn-primary">Solicita una demo</a>
+      <a href="contacto.html#demo" class="btn btn-primary">Solicitar una demo</a>
       <button class="nav-toggle" aria-label="Abrir menú">
         <span></span><span></span><span></span>
       </button>
@@ -44,32 +49,55 @@
   <section class="hero">
     <div class="container hero-inner">
       <div>
-        <span class="eyebrow">Para clínicas estéticas</span>
-        <h1>Ayudamos a clínicas estéticas a conseguir una atención 24/7, reducir los no-shows y mejorar la fidelización de sus pacientes mediante asistentes virtuales y automatización.</h1>
-        <p class="hero-lede">SyncraClinics automatiza la captación, la agenda y el seguimiento de tu clínica para que ningún paciente se te escape, incluso fuera de horario comercial.</p>
-        <div class="hero-actions">
-          <a href="contacto.html#choice" class="btn btn-primary">Solicita una demo</a>
-          <a href="soluciones.html" class="btn btn-secondary">Ver soluciones</a>
+        <span class="hero-badge reveal"><span class="dot"></span> Tu clínica, atendida 24/7</span>
+        <h1 class="reveal">Asistente virtual para clínicas estéticas</h1>
+        <p class="hero-lede reveal">Ayudamos a clínicas estéticas a conseguir una atención 24/7, reducir los no-shows y mejorar la fidelización de sus pacientes mediante asistentes virtuales y automatización.</p>
+        <div class="hero-actions reveal">
+          <a href="contacto.html#demo" class="btn btn-primary btn-lg">Solicitar una demo</a>
+          <a href="#como-funciona" class="btn btn-secondary btn-lg">Descubrir cómo funciona</a>
+        </div>
+        <div class="hero-indicators reveal">
+          <span class="hero-indicator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> Atención 24/7</span>
+          <span class="hero-indicator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> Menos no-shows</span>
+          <span class="hero-indicator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> Más seguimiento</span>
+          <span class="hero-indicator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> Más eficiencia</span>
         </div>
       </div>
 
-      <div class="hero-visual">
-        <div class="hero-stat-grid">
-          <div class="hero-stat">
-            <strong>24/7</strong>
-            <span>Respuesta a pacientes, todos los días del año</span>
+      <div class="hero-visual reveal">
+        <div class="hero-visual-head">
+          <span>Asistente virtual</span>
+          <div class="hero-visual-dots"><i></i><i></i><i></i></div>
+        </div>
+        <div class="workflow-track">
+          <div class="workflow-step">
+            <div class="workflow-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.5 3-6 7-6s7 2.5 7 6"/></svg></div>
+            <div><strong>Paciente</strong><span>Escribe por WhatsApp o web</span></div>
+            <svg class="workflow-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
           </div>
-          <div class="hero-stat">
-            <strong>−No-shows</strong>
-            <span>Menos ausentismo con recordatorios automáticos</span>
+          <div class="workflow-step">
+            <div class="workflow-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+            <div><strong>Asistente virtual</strong><span>Responde al instante, 24/7</span></div>
+            <svg class="workflow-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
           </div>
-          <div class="hero-stat">
-            <strong>+Eficiencia</strong>
-            <span>Tu equipo deja de perseguir contactos por internet</span>
+          <div class="workflow-step">
+            <div class="workflow-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 13l4 4L19 7"/></svg></div>
+            <div><strong>Cualificación</strong><span>Detecta intención y necesidad</span></div>
+            <svg class="workflow-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
           </div>
-          <div class="hero-stat">
-            <strong>100%</strong>
-            <span>Seguimiento post-consulta sin esfuerzo manual</span>
+          <div class="workflow-step">
+            <div class="workflow-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg></div>
+            <div><strong>Agenda</strong><span>Reserva la cita disponible</span></div>
+            <svg class="workflow-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+          </div>
+          <div class="workflow-step">
+            <div class="workflow-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg></div>
+            <div><strong>Recordatorio</strong><span>Confirma y reduce ausencias</span></div>
+            <svg class="workflow-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+          </div>
+          <div class="workflow-step">
+            <div class="workflow-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-4.35-9.5-8.5C.5 8.5 3 5 6.5 5c2 0 3.2 1 5.5 3.5C14.3 6 15.5 5 17.5 5 21 5 23.5 8.5 21.5 12.5 19 16.65 12 21 12 21z"/></svg></div>
+            <div><strong>Seguimiento</strong><span>Acompaña tras la consulta</span></div>
           </div>
         </div>
       </div>
@@ -78,58 +106,47 @@
 
   <section class="section section-alt">
     <div class="container">
-      <div class="section-head">
-        <span class="eyebrow">Problemas que resolvemos</span>
-        <h2>¿Qué es lo que más te afecta?</h2>
+      <div class="section-head reveal">
+        <span class="eyebrow">El problema</span>
+        <h2>Los procesos manuales también cuestan tiempo.</h2>
         <p>Estas son las fricciones más comunes que frenan el crecimiento de una clínica estética.</p>
       </div>
 
-      <div class="grid grid-3">
-        <button type="button" class="card problem-card pain-card" data-pain="Cualificación de leads" aria-pressed="false">
+      <div class="grid grid-3 reveal">
+        <button type="button" class="card problem-card pain-card" data-pain="Mensajes sin responder" aria-pressed="false">
+          <span class="pain-check" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 13l4 4L19 7"/></svg>
+          </span>
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          </div>
+          <h3>Mensajes sin responder</h3>
+          <p>Si nadie responde a tiempo fuera de horario o el fin de semana, el paciente potencial se va a la competencia.</p>
+        </button>
+
+        <button type="button" class="card problem-card pain-card" data-pain="Leads que se pierden" aria-pressed="false">
           <span class="pain-check" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 13l4 4L19 7"/></svg>
           </span>
           <div class="card-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16l-6 8v6l-4 2v-8L4 4z"/></svg>
           </div>
-          <h3>No sabes quién compra de verdad</h3>
-          <p>Muchos contactos solo preguntan precio y desaparecen: no hay forma de calificar el tráfico real.</p>
+          <h3>Leads que se pierden</h3>
+          <p>Muchos contactos solo preguntan precio y nunca vuelven a responder: no hay forma de calificar el interés real.</p>
         </button>
 
-        <button type="button" class="card problem-card pain-card" data-pain="Atención 24/7" aria-pressed="false">
-          <span class="pain-check" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 13l4 4L19 7"/></svg>
-          </span>
-          <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
-          </div>
-          <h3>Fuga de clientes por lentitud</h3>
-          <p>Si piden cita fuera de horario o en fin de semana y nadie responde a tiempo, se van a la competencia.</p>
-        </button>
-
-        <button type="button" class="card problem-card pain-card" data-pain="Reducción de ausentismo" aria-pressed="false">
+        <button type="button" class="card problem-card pain-card" data-pain="Pacientes que olvidan sus citas" aria-pressed="false">
           <span class="pain-check" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 13l4 4L19 7"/></svg>
           </span>
           <div class="card-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/><path d="M9 15l2 2 4-4"/></svg>
           </div>
-          <h3>Alta tasa de ausentismo</h3>
-          <p>Citas que se cancelan o simplemente no se presentan a última hora, sin previo aviso.</p>
+          <h3>Pacientes que olvidan sus citas</h3>
+          <p>Sin recordatorios ni confirmación previa, las cancelaciones y ausencias de última hora se acumulan.</p>
         </button>
 
-        <button type="button" class="card problem-card pain-card" data-pain="Eficiencia del personal" aria-pressed="false">
-          <span class="pain-check" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 13l4 4L19 7"/></svg>
-          </span>
-          <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M2 20c0-3.3 2.7-6 6-6s6 2.7 6 6M14.5 20c0-2.4-1-4.4-2.6-5.7 1-.7 2.3-1 3.6-.8 2.3.3 4 2.5 4 5"/></svg>
-          </div>
-          <h3>Personal saturado</h3>
-          <p>Tu equipo pierde horas pendiente de mensajes en redes y WhatsApp en lugar de atender en clínica.</p>
-        </button>
-
-        <button type="button" class="card problem-card pain-card" data-pain="Seguimiento post-consulta" aria-pressed="false">
+        <button type="button" class="card problem-card pain-card" data-pain="Falta de seguimiento" aria-pressed="false">
           <span class="pain-check" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 13l4 4L19 7"/></svg>
           </span>
@@ -137,73 +154,269 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4l5 16 3-7 7-3z"/></svg>
           </div>
           <h3>Falta de seguimiento</h3>
-          <p>Tras la primera consulta, muchos pacientes no vuelven a saber de la clínica y se pierden como cliente recurrente.</p>
+          <p>Muchos pacientes no vuelven a saber de la clínica después de la primera visita y se pierden como recurrentes.</p>
         </button>
 
-        <button type="button" class="card problem-card pain-card" data-pain="Gestor de agendas" aria-pressed="false">
+        <button type="button" class="card problem-card pain-card" data-pain="Personal en tareas repetitivas" aria-pressed="false">
           <span class="pain-check" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 13l4 4L19 7"/></svg>
           </span>
           <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M8 14h3M8 17h6"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M2 20c0-3.3 2.7-6 6-6s6 2.7 6 6M14.5 20c0-2.4-1-4.4-2.6-5.7 1-.7 2.3-1 3.6-.8 2.3.3 4 2.5 4 5"/></svg>
           </div>
-          <h3>Agendas descoordinadas</h3>
-          <p>Gestionar citas a mano entre varias vías de contacto genera huecos vacíos y solapamientos.</p>
+          <h3>Personal dedicando horas a tareas repetitivas</h3>
+          <p>Tu equipo dedica horas a gestionar mensajes en vez de atender a los pacientes que ya están en la clínica.</p>
         </button>
       </div>
 
-      <p class="pain-hint">Selecciona las opciones que más te afectan para que podamos hacer un mejor diagnóstico de las necesidades de tu clínica.</p>
+      <p class="pain-hint">Selecciona las opciones que más te afectan para que podamos hacer un mejor diagnóstico de tu clínica.</p>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
-      <div class="section-head">
-        <span class="eyebrow">Cómo lo hacemos</span>
-        <h2>Automatización pensada para clínicas estéticas</h2>
-        <p>Implementamos un sistema a medida que trabaja por tu clínica las 24 horas.</p>
+      <div class="section-head reveal">
+        <span class="eyebrow">La solución</span>
+        <h2>Transforma la gestión de tu clínica.</h2>
+        <p>Un único sistema conecta cada etapa, desde el primer contacto hasta la fidelización.</p>
       </div>
 
-      <div class="grid grid-3">
-        <div class="card">
-          <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16l-6 8v6l-4 2v-8L4 4z"/></svg>
-          </div>
-          <h3>Cualificación de leads</h3>
-          <p>Filtramos automáticamente a quién merece la pena responder primero, según intención real de compra.</p>
+      <div class="flow-diagram reveal">
+        <div class="flow-step">
+          <div class="flow-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.5 3-6 7-6s7 2.5 7 6"/></svg></div>
+          <strong>Paciente</strong>
+          <span>Inicia el contacto</span>
         </div>
-
-        <div class="card">
-          <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
-          </div>
-          <h3>Atención 24/7</h3>
-          <p>Respondemos consultas, dudas y solicitudes de cita en cualquier horario, también fines de semana.</p>
+        <div class="flow-connector"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
+        <div class="flow-step">
+          <div class="flow-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+          <strong>Asistente virtual 24/7</strong>
+          <span>Responde al instante</span>
         </div>
-
-        <div class="card">
-          <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M8 14h3M8 17h6"/></svg>
-          </div>
-          <h3>Gestor de agendas</h3>
-          <p>Un sistema centraliza y organiza las citas para que tu equipo nunca pierda tiempo cuadrando horarios.</p>
+        <div class="flow-connector"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
+        <div class="flow-step">
+          <div class="flow-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+          <strong>Entiende la necesidad</strong>
+          <span>Detecta qué busca</span>
         </div>
-      </div>
-
-      <div style="text-align:center; margin-top:40px;">
-        <a href="soluciones.html" class="btn btn-secondary">Ver todas las soluciones</a>
+        <div class="flow-connector"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
+        <div class="flow-step">
+          <div class="flow-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 13l4 4L19 7"/></svg></div>
+          <strong>Cualifica</strong>
+          <span>Identifica intención real</span>
+        </div>
+        <div class="flow-connector"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
+        <div class="flow-step">
+          <div class="flow-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M8 14h3M8 17h6"/></svg></div>
+          <strong>Ayuda a reservar</strong>
+          <span>Cita confirmada</span>
+        </div>
+        <div class="flow-connector"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
+        <div class="flow-step">
+          <div class="flow-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg></div>
+          <strong>Recuerda la cita</strong>
+          <span>Menos ausencias</span>
+        </div>
+        <div class="flow-connector"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
+        <div class="flow-step">
+          <div class="flow-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4l5 16 3-7 7-3z"/></svg></div>
+          <strong>Realiza seguimiento</strong>
+          <span>Después de la consulta</span>
+        </div>
       </div>
     </div>
   </section>
 
   <section class="section section-alt">
     <div class="container">
-      <div class="cta-band">
-        <h2>Hablemos de tu clínica</h2>
-        <p>Cuéntanos cómo trabajas hoy y te mostramos cómo automatizarlo sin fricción.</p>
+      <div class="section-head reveal">
+        <span class="eyebrow">Asistente virtual</span>
+        <h2>Así trabaja tu asistente virtual por tu clínica</h2>
+        <p>Una demostración visual de lo que tu asistente virtual gestiona por ti, día a día.</p>
+      </div>
+
+      <div class="dashboard-panel reveal">
+        <div class="dashboard-head">
+          <h3>Asistente Virtual SyncraClinics</h3>
+          <span class="dashboard-demo-tag">Panel de demostración</span>
+        </div>
+        <div class="dashboard-grid">
+          <div class="dashboard-metric">
+            <strong data-count-to="128" data-count-prefix="+">0</strong>
+            <span>Conversaciones</span>
+            <div class="dashboard-bar" style="--bar-value: 90%;"><span></span></div>
+          </div>
+          <div class="dashboard-metric">
+            <strong data-count-to="84">0</strong>
+            <span>Pacientes atendidos</span>
+            <div class="dashboard-bar" style="--bar-value: 59%;"><span></span></div>
+          </div>
+          <div class="dashboard-metric">
+            <strong data-count-to="57">0</strong>
+            <span>Solicitudes de cita</span>
+            <div class="dashboard-bar" style="--bar-value: 40%;"><span></span></div>
+          </div>
+          <div class="dashboard-metric">
+            <strong data-count-to="96">0</strong>
+            <span>Seguimientos</span>
+            <div class="dashboard-bar" style="--bar-value: 68%;"><span></span></div>
+          </div>
+          <div class="dashboard-metric">
+            <strong data-count-to="142">0</strong>
+            <span>Recordatorios</span>
+            <div class="dashboard-bar" style="--bar-value: 100%;"><span></span></div>
+          </div>
+        </div>
+        <p class="dashboard-footnote">Panel de demostración con datos ilustrativos. No corresponden a clientes reales.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Asistente virtual</span>
+        <h2>Tu clínica puede hacer más mientras tú haces menos.</h2>
+        <p>Todo lo que tu asistente virtual puede hacer por tu clínica, de la captación a la reactivación.</p>
+      </div>
+
+      <div class="grid grid-4 reveal">
+        <div class="card automation-card">
+          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+          <h3>Asistente virtual 24/7</h3>
+          <p>Responde a tus pacientes en cualquier momento, todos los días del año.</p>
+        </div>
+        <div class="card automation-card">
+          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16l-6 8v6l-4 2v-8L4 4z"/></svg></div>
+          <h3>Captación de pacientes</h3>
+          <p>Convierte las consultas en oportunidades, capturando los datos y el servicio que busca cada contacto.</p>
+        </div>
+        <div class="card automation-card">
+          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 13l4 4L19 7"/></svg></div>
+          <h3>Cualificación</h3>
+          <p>Identifica qué necesita cada paciente: tratamiento, urgencia y disponibilidad real.</p>
+        </div>
+        <div class="card automation-card">
+          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M8 14h3M8 17h6"/></svg></div>
+          <h3>Gestión de citas</h3>
+          <p>Facilita la organización de las solicitudes, conectando con el calendario disponible.</p>
+        </div>
+        <div class="card automation-card">
+          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg></div>
+          <h3>Recordatorios</h3>
+          <p>Ayuda a reducir olvidos y no-shows con avisos antes de cada cita.</p>
+        </div>
+        <div class="card automation-card">
+          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4l5 16 3-7 7-3z"/></svg></div>
+          <h3>Seguimiento</h3>
+          <p>Continúa la conversación después del primer contacto o la consulta.</p>
+        </div>
+        <div class="card automation-card">
+          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-4.35-9.5-8.5C.5 8.5 3 5 6.5 5c2 0 3.2 1 5.5 3.5C14.3 6 15.5 5 17.5 5 21 5 23.5 8.5 21.5 12.5 19 16.65 12 21 12 21z"/></svg></div>
+          <h3>Reactivación</h3>
+          <p>Vuelve a conectar con pacientes que dejaron de contactar o no llegaron a reservar.</p>
+        </div>
+        <div class="card automation-card">
+          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><circle cx="12" cy="21" r="1"/></svg></div>
+          <h3>Notificaciones internas</h3>
+          <p>Avisa a tu equipo de cada solicitud nueva para que nada dependa de estar pendiente del móvil.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Integraciones</span>
+        <h2>Conectamos tus herramientas para que trabajen juntas.</h2>
+        <p>Tu clínica ya usa email, calendario y WhatsApp. Nuestro sistema los une para que la información fluya sola.</p>
+      </div>
+
+      <div class="integration-panel reveal">
+        <div class="flow-diagram">
+          <div class="flow-step">
+            <div class="flow-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 8h18"/></svg></div>
+            <strong>Tu web</strong>
+            <span>Formulario de contacto</span>
+          </div>
+          <div class="flow-connector"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
+          <div class="flow-step">
+            <div class="flow-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13 2 3 14h7l-1 8 11-14h-7l1-6z"/></svg></div>
+            <strong>Asistente virtual</strong>
+            <span>Entiende y procesa la solicitud</span>
+          </div>
+          <div class="flow-connector"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
+          <div class="flow-step">
+            <div class="flow-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6l9 7 9-7"/><rect x="3" y="5" width="18" height="14" rx="2"/></svg></div>
+            <strong>Tus herramientas</strong>
+            <span>Gmail, calendario, WhatsApp</span>
+          </div>
+          <div class="flow-connector"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
+          <div class="flow-step">
+            <div class="flow-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+            <strong>Respuesta</strong>
+            <span>Llega al paciente</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="como-funciona">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Cómo funciona</span>
+        <h2>De la primera conversación a un sistema funcionando</h2>
+      </div>
+
+      <div class="steps-grid reveal">
+        <div class="step-item">
+          <span class="step-index">01</span>
+          <h3>Analizamos tu clínica</h3>
+          <p>Revisamos cómo captas, atiendes y haces seguimiento hoy.</p>
+        </div>
+        <div class="step-item">
+          <span class="step-index">02</span>
+          <h3>Detectamos oportunidades para tu asistente virtual</h3>
+          <p>Identificamos dónde se pierden pacientes y horas de trabajo.</p>
+        </div>
+        <div class="step-item">
+          <span class="step-index">03</span>
+          <h3>Diseñamos el sistema</h3>
+          <p>Configuramos el flujo de atención, agenda y seguimiento a medida.</p>
+        </div>
+        <div class="step-item">
+          <span class="step-index">04</span>
+          <h3>Lo implementamos y optimizamos</h3>
+          <p>Ponemos el sistema en marcha y lo ajustamos con el tiempo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="trust-panel reveal">
+        <h2>Pensado para clínicas que quieren crecer sin aumentar la carga de trabajo.</h2>
+        <div class="trust-tags">
+          <span class="trust-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> Atención 24/7</span>
+          <span class="trust-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> Asistente virtual</span>
+          <span class="trust-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> Seguimiento</span>
+          <span class="trust-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> Organización</span>
+          <span class="trust-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> Escalabilidad</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="cta-band reveal">
+        <h2>¿Cuánto tiempo está perdiendo tu clínica cada día por procesos manuales?</h2>
+        <p>Descubre cómo un asistente virtual podría atender, agendar y hacer seguimiento en tu clínica.</p>
         <div class="cta-actions">
-          <a href="contacto.html#choice" class="btn btn-primary">Solicita una demo</a>
-          <a href="nosotros.html" class="btn btn-secondary">Conoce SyncraClinics</a>
+          <a href="contacto.html#demo" class="btn btn-primary btn-lg">Solicitar una demo</a>
         </div>
       </div>
     </div>
@@ -216,13 +429,14 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <span class="brand-name">SyncraClinics</span>
-        <p>Healthcare &amp; Branding Agency. Automatización y gestión para clínicas estéticas que no quieren perder ni un paciente más.</p>
+        <p>Asistente virtual y automatización para clínicas estéticas que no quieren perder ni un paciente más.</p>
       </div>
 
       <div class="footer-col">
         <h4>Navegación</h4>
         <a href="index.html">Inicio</a>
         <a href="soluciones.html">Soluciones</a>
+        <a href="index.html#como-funciona">Cómo funciona</a>
         <a href="nosotros.html">Nosotros</a>
         <a href="contacto.html">Contacto</a>
       </div>
@@ -238,7 +452,10 @@
 
     <div class="footer-bottom">
       <span>© 2026 SyncraClinics. Todos los derechos reservados.</span>
-      <span>España</span>
+      <div class="footer-legal">
+        <a href="privacidad.html">Política de privacidad</a>
+        <a href="aviso-legal.html">Aviso legal</a>
+      </div>
     </div>
   </div>
 </footer>
