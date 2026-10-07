@@ -29,7 +29,129 @@ document.addEventListener("DOMContentLoaded", () => {
   setupPainPoints();
   setupInfoModal();
   setupPhoneMenu();
+  setupNoShowCalculator();
+  setupChatDemo();
 });
+
+function setupChatDemo() {
+  const chatWindow = document.querySelector(".chat-window");
+  if (!chatWindow) return;
+
+  const messagesContainer = chatWindow.querySelector(".chat-messages");
+  const bubbles = messagesContainer
+    ? Array.from(messagesContainer.querySelectorAll(".chat-bubble"))
+    : [];
+  if (!messagesContainer || !bubbles.length) return;
+
+  bubbles.forEach((bubble) => {
+    bubble.style.display = "none";
+    bubble.classList.remove("is-shown");
+  });
+
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (prefersReducedMotion) {
+    bubbles.forEach((bubble) => {
+      bubble.style.display = "";
+    });
+    return;
+  }
+
+  let paused = false;
+  const supportsHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  if (supportsHover) {
+    chatWindow.addEventListener("mouseenter", () => {
+      paused = true;
+    });
+    chatWindow.addEventListener("mouseleave", () => {
+      paused = false;
+    });
+  }
+
+  const wait = (ms) =>
+    new Promise((resolve) => {
+      let remaining = ms;
+      const tick = () => {
+        if (paused) {
+          setTimeout(tick, 150);
+          return;
+        }
+        remaining -= 150;
+        if (remaining <= 0) {
+          resolve();
+        } else {
+          setTimeout(tick, 150);
+        }
+      };
+      setTimeout(tick, 150);
+    });
+
+  const scrollToBottom = () => {
+    messagesContainer.scrollTo({ top: messagesContainer.scrollHeight, behavior: "smooth" });
+  };
+
+  const showBubble = (bubble) => {
+    bubble.style.display = "";
+    void bubble.offsetWidth;
+    bubble.classList.add("is-shown");
+    scrollToBottom();
+  };
+
+  const showTyping = async () => {
+    const typingEl = document.createElement("div");
+    typingEl.className = "chat-typing";
+    typingEl.innerHTML = "<span></span><span></span><span></span>";
+    messagesContainer.appendChild(typingEl);
+    scrollToBottom();
+    await wait(1000);
+    typingEl.remove();
+  };
+
+  const resetConversation = () => {
+    bubbles.forEach((bubble) => {
+      bubble.classList.remove("is-shown");
+      bubble.style.display = "none";
+    });
+    messagesContainer.scrollTop = 0;
+  };
+
+  const runConversation = async () => {
+    for (let i = 0; i < bubbles.length; i++) {
+      const bubble = bubbles[i];
+      const isAssistant = bubble.classList.contains("assistant");
+
+      if (isAssistant) {
+        await showTyping();
+      }
+
+      showBubble(bubble);
+
+      const isLast = i === bubbles.length - 1;
+      await wait(isLast ? 4500 : isAssistant ? 1300 : 1200);
+    }
+
+    resetConversation();
+    runConversation();
+  };
+
+  if ("IntersectionObserver" in window) {
+    let started = false;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !started) {
+            started = true;
+            runConversation();
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(chatWindow);
+  } else {
+    runConversation();
+  }
+}
 
 function setupHeaderScroll() {
   const header = document.querySelector(".site-header");
@@ -211,7 +333,6 @@ const FORM_FIELD_KEY_MAP = {
 
 function buildInfoFormPayload(form) {
   const payload = {
-    tipo_solicitud: "Demo",
     pagina_origen: window.location.href,
     fecha_envio: new Date().toISOString(),
   };
@@ -222,18 +343,20 @@ function buildInfoFormPayload(form) {
     payload[key] = field.value.trim();
   });
 
+  payload.tipo_solicitud = payload.servicio || "Información";
+
   const storedPainPoints = getStoredPainPoints();
   if (storedPainPoints.length) {
     payload.dolores_seleccionados = storedPainPoints;
   }
 
-  payload.asunto_sugerido = `[NUEVA SOLICITUD] Demo - Syncra Clinics`;
+  payload.asunto_sugerido = `[NUEVA SOLICITUD] ${payload.tipo_solicitud} - Syncra Clinics`;
 
   const bodyLines = [
     "Nueva solicitud recibida desde Syncra Clinics",
     "",
     "Tipo de solicitud:",
-    "Demo",
+    payload.tipo_solicitud,
     "",
     "Nombre:",
     payload.nombre || "-",
@@ -319,6 +442,27 @@ function setupInfoForm(form) {
         }
       });
   });
+}
+
+function setupNoShowCalculator() {
+  const citasInput = document.querySelector("#calc-citas");
+  const valorInput = document.querySelector("#calc-valor");
+  const result = document.querySelector("#calc-result");
+  if (!citasInput || !valorInput || !result) return;
+
+  const formatter = new Intl.NumberFormat("es-ES", {
+    maximumFractionDigits: 0,
+  });
+
+  const update = () => {
+    const citas = Math.max(0, parseInt(citasInput.value, 10) || 0);
+    const valor = Math.max(0, parseInt(valorInput.value, 10) || 0);
+    result.textContent = `${formatter.format(citas * valor)} €`;
+  };
+
+  citasInput.addEventListener("input", update);
+  valorInput.addEventListener("input", update);
+  update();
 }
 
 function setupPhoneMenu() {
